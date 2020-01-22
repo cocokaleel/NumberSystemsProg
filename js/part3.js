@@ -1,16 +1,98 @@
 
 function ConversionPart3() {
   var floatToConvert = parseFloat(document.getElementById("3_Float").value);
+  var floatString = document.getElementById("3_Float").value;
+  var decimalPoint = floatString.indexOf(".");
+  
+  var wholeNumber = parseInt (floatString.substring(0,decimalPoint));
+  console.log("Whole Number: " + wholeNumber);
+  var mantissa = parseFloat(floatString.substring(decimalPoint));
+  console.log("Mantissa: "+ mantissa);
 
+  var wholeNumberBinary;
+  //binary rep
+  var runningString="";
+  var i=wholeNumber;
+  var mod, div;
+  while (i>0) {
+    console.log(i);
+    mod = i%2;
+    div = i/2;
+    console.log("Mod:" + mod);
+    console.log("Div: "+div);
+    runningString=""+mod+""+runningString;
+    i=Math.floor(div);
+  }
 
+  wholeNumberBinary=runningString;
+  if (wholeNumberBinary.length==0) {
+    wholeNumberBinary="0";
+  }
 
-  var output32BitScientificNotation = "10100011001100001000010100101010";
+  var mantissaBinary;
 
+  runningString="";
+  i=mantissa;
+  var sub, mult;
+  
+  while (i!=1&&runningString.length<24) {
+    i=i*2;
+    console.log(i);
+    if (i>=1) {
+      runningString+="1";
+      i=i-1;
+    }
+    else {
+      runningString+="0";
+    }
+  }
+
+  mantissaBinary=runningString;
+  
+  var multiplierPoint;
+
+  for (var j = 0; j<mantissaBinary.length; j++) {
+    console.log("Char at: "+mantissaBinary.charAt(j));
+    if (mantissaBinary.charAt(j)=="1") {
+      multiplierPoint=j;
+    }
+  }
+  console.log("Multiplier Point: " + multiplierPoint);
+
+  var multiplierBinary;
+
+  runningString="";
+  i=multiplierPoint;
+  var mod, div;
+  while (i>0) {
+    console.log(i);
+    mod = i%2;
+    div = i/2;
+    console.log("Mod:" + mod);
+    console.log("Div: "+div);
+    runningString=""+mod+""+runningString;
+    i=Math.floor(div);
+    console.log("Current Multiplier " + runningString);
+  }
+
+  multiplierBinary=runningString;
+  console.log("Multiplier binary: " + multiplierBinary);
+
+  var output32BitScientificNotation = " Whole Number Binary: "+wholeNumberBinary;
+  output32BitScientificNotation += " Mantissa Binary: " + mantissaBinary;
+  output32BitScientificNotation +=" Scientific Notation Binary: " + multiplierBinary;
 
   // Show the output on the screen
   FormatAndShowOutput([floatToConvert, output32BitScientificNotation], 3);
 }
 
+function isDecimal (numberString) {
+  var num = parseInt(numberString);
+  if (num>1) {
+    return true;
+  } 
+  return false;
+}
 
 // If you dare read a comment before starting to program..
 // 3434000.5 has a binary representation of
