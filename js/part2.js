@@ -1,15 +1,15 @@
 function ConversionPart2() {
     //
-    var SignedDecimalInt = parseInt(document.getElementById("2_SignedInt").value);
+    var SignedDecimalInt = document.getElementById("2_SignedInt").value;
 
     var outputValue;
     var positive;
     if (document.getElementById("2_SignedInt").value.charAt(0)=="-") {
-        outputValue = SignedDecimalInt.substring(1);
+        outputValue = parseInt(SignedDecimalInt.substring(1));
         positive=false;
     }
     else {
-        outputValue = SignedDecimalInt; //only for positive
+        outputValue = parseInt(SignedDecimalInt); //only for positive
         positive=true;
     }
     //binary rep
